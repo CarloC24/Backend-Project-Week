@@ -1,13 +1,15 @@
 const db = require('./dbinit');
 
-module.exports = { getNotes, addNotes, updateNotes, deleteNotes };
+module.exports = { getNotes, getNotesById, addNotes, updateNotes, deleteNotes };
 
-function getNotes(id) {
-  if (id) {
-    return db('notes').where({ id });
-  } else {
-    return db('notes');
-  }
+function getNotes() {
+  return db('notes');
+}
+
+function getNotesById(id) {
+  return db('notes')
+    .where({ id })
+    .first();
 }
 
 function addNotes(notes) {
