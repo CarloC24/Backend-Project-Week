@@ -27,8 +27,33 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id');
+router.put('/:id', async (req, res) => {
+  const note = req.body;
+  const { id } = req.params;
+  if (note && id) {
+    try {
+      const response = await dbM.updateNotes(note);
+      res.status(200).json({ message: `User updated with id of ${response}` });
+    } catch (err) {
+      res.status(500).json({ message: 'Bad request' });
+    }
+  } else {
+    res.status(500).json({ message: 'Bad Request' });
+  }
+});
 
-router.delete('/:id');
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  if (id) {
+    try {
+      const response = await dbM.getNotes(id);
+      res.status(200).json({ message: 'Success deleting user' });
+    } catch (err) {
+      res.status(404).json({ message: `No user found a id ${id}` });
+    }
+  } else {
+    res.status(500).json({ message: 'Bad Request' });
+  }
+});
 
 module.exports = router;
