@@ -3,7 +3,8 @@ exports.up = function(knex, Promise) {
     tbl.increments();
     tbl.string('title').notNullable();
     tbl.string('textBody').notNullable();
-    tbl.string('tags').defaultTo([]);
+    tbl.string('tags').defaultTo('');
+    tbl.string('todos').defaultTo('');
   });
 };
 
