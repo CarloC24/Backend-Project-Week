@@ -1,11 +1,11 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('todos', tbl => {
+  return knex.schema.createTable('tags', tbl => {
     tbl.increments();
-    tbl.string('task').notNullable();
     tbl.integer('notes_id').notNullable();
+    tbl.string('tags').notNullable();
   });
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('todos');
+  return knex.schema.dropTable('tags');
 };

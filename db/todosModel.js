@@ -1,14 +1,25 @@
 const db = require('./dbinit');
 
-module.exports = { getTodos, getTodosById, addTodos, updateTodos, deleteTodos };
+module.exports = {
+  getTodos,
+  getTodosById,
+  getByNotesId,
+  addTodos,
+  updateTodos,
+  deleteTodos
+};
 function getTodos() {
   return db('todos');
 }
 
 function getTodosById(id) {
   return db('todos')
-    .where({ id })
+    .where({ id: id })
     .first();
+}
+
+function getByNotesId(id) {
+  return db('todos').where({ notes_id: id });
 }
 
 function addTodos(todos) {

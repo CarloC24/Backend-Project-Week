@@ -1,5 +1,6 @@
 const express = require('express');
 const dbM = require('../db/notesModel');
+const tdM = require('../db/todosModel');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -14,6 +15,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   const response = await dbM.getNotesById(id);
+  response.todos = await tdM.getByNotesId(id);
   res.status(200).json(response);
 });
 

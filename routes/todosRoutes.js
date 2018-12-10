@@ -17,6 +17,13 @@ router.get('/:id', async (req, res) => {
   res.status(200).json(response);
 });
 
+router.get('/notes/:id', async (req, res) => {
+  console.log('reached me');
+  const { id } = req.params;
+  const response = await todosM.getByNotesId(id);
+  res.status(200).json(response);
+});
+
 router.post('/', async (req, res) => {
   const body = req.body;
 
