@@ -4,30 +4,24 @@ const tdM = require('../db/todosModel');
 const tagsM = require('../db/tagsModel');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  // try {
-  //   const response = await dbM.getNotes();
-  //   await response.map(async item => {
-  //     return (item.tags = await tagsM.getTagsById(item.id));
-  //   });
-  //   res.status(200).json(response);
-  // } catch (err) {
-  //   res.status(500).json({ message: 'Bad Request' });
-  // }
-  dbM.getNotes().then(response => {
-    response.map(item => {
-      tagsM.getTagsById(item.id).then(resp => {
-        item.tags = resp;
-        res.status(200).json(response);
-      });
+router.get('/', async (req, res) => {
+  try {
+    const response = await dbM.getNotes();
+    const notes = await response.map((item, index) => {
+      return Promise.resolve((item.tags = tagsM.getTagsById(item.id)));
     });
-  });
+    console.log(notes);
+    res.status(200).json(response);
+  } catch (err) {
+    res.status(500).json({ message: 'Bad Request' });
+  }
 });
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   const response = await dbM.getNotesById(id);
   response.todos = await tdM.getByNotesId(id);
+  response.tags = await tagsM.getTagsById(id);
   res.status(200).json(response);
 });
 
