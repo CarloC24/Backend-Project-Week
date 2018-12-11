@@ -11,8 +11,8 @@ function getTags() {
   return db('tags');
 }
 
-function getTagsById() {
-  return db('tags').where({ id });
+function getTagsById(id) {
+  return db('tags').where({ notes_id: id });
 }
 
 function addTag(tag) {
