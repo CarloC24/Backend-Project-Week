@@ -20,7 +20,6 @@ function addTag(tag) {
 }
 
 function removeTag(id) {
-  console.log('here');
   return db('tags')
     .where({ id })
     .del();
