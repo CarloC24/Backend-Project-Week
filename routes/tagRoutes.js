@@ -33,10 +33,10 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.delete('/', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   if (id) {
-    const response = await tagM.getTags();
+    const response = await tagM.removeTag(id);
     res.status(200).json(response);
   } else {
     res.status(500).json({ message: 'Need to id on req.params' });

@@ -7,10 +7,6 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const response = await dbM.getNotes();
-    const notes = await response.map((item, index) => {
-      return Promise.resolve((item.tags = tagsM.getTagsById(item.id)));
-    });
-    console.log(notes);
     res.status(200).json(response);
   } catch (err) {
     res.status(500).json({ message: 'Bad Request' });
@@ -59,7 +55,7 @@ router.delete('/:id', async (req, res) => {
   if (id) {
     try {
       const response = await dbM.deleteNotes(id);
-      res.status(200).json({ message: 'Success deleting user' });
+      res.status(200).json({ message: 'Success deleting notes' });
     } catch (err) {
       res.status(404).json({ message: `No user found a id ${id}` });
     }
