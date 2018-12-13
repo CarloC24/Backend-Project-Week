@@ -1,5 +1,6 @@
 const express = require('express');
 const server = express();
+const notesM = require('./db/notesModel');
 const ConfigMiddleware = require('./middleware/middleware');
 const notesRoutes = require('./routes/notesRoutes');
 const todosRoutes = require('./routes/todosRoutes');
