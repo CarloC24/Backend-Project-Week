@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     tbl.string('textBody').notNullable();
     tbl.string('tags').defaultTo('');
     tbl.string('todos').defaultTo('');
+    tbl.string('created_by').notNullable();
   });
 };
 
